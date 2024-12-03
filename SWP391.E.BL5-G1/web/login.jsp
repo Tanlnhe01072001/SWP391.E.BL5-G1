@@ -115,7 +115,7 @@
                             <input style="margin-left: 150px" ${(cookie.rem.value eq 'ON') ? "checked" : ""} id="remember" name="remember" value="ON" type="checkbox">
                             Nhớ tài khoản
                         </label>
-                        <p ><a href="#">Quên mật khẩu </a></p>
+                        <p ><a href="forgotpass.jsp">Quên mật khẩu </a></p>
                         <button style="margin-left: -100px" type="submit">Đăng nhập</button>
 
                         <p><a style="margin-left: 100px" href="register.jsp">Đăng kí ngay</a></p>
