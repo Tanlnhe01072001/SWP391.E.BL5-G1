@@ -5,8 +5,6 @@
  */
 package controller;
 
-import dal.albumDAO;
-import dal.billDAO;
 import dal.blogDAO;
 import dal.productDAO;
 import model.Product;
