@@ -30,19 +30,8 @@ import model.CouponType;
  */
 @WebServlet(name = "CouponManager", urlPatterns = {"/couponmanager"})
 public class CouponManager extends HttpServlet {
-
     private couponDAO couponDAO = new couponDAO();
     private couponTypeDAO couponTypeDAO = new couponTypeDAO();
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -59,16 +48,6 @@ public class CouponManager extends HttpServlet {
             out.println("</html>");
         }
     }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -104,30 +83,54 @@ public class CouponManager extends HttpServlet {
                 Logger.getLogger(CouponManager.class.getName()).log(Level.SEVERE, null, ex);
             }
             response.sendRedirect("couponmanager?action=list");
-        
+        } else if ("generate".equals(action)) {
+            try {
+                couponTypes = couponTypeDAO.getAllCouponTypes();
+            } catch (Exception ex) {
+                Logger.getLogger(CouponManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            request.setAttribute("couponTypes", couponTypes);
+            request.getRequestDispatcher("generateCoupon.jsp").forward(request, response);
         } else {
             response.sendRedirect("couponmanager?action=list");
         }
     }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    }
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("user") == null) {
+            response.sendRedirect("user?action=login");
+            return;
+        } 
+        model.User user = (model.User) session.getAttribute("user");
+        String action = request.getParameter("action");
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
+        if ("create".equals(action)) {
+            int couponTypeId = Integer.parseInt(request.getParameter("couponTypeId"));
+            String startDateStr = request.getParameter("startDate");
+            String endDateStr = request.getParameter("endDate");
+            int usageLimit = Integer.parseInt(request.getParameter("usageLimit"));
+
+            Date startDate = parseDate(startDateStr);
+            Date endDate = parseDate(endDateStr);
+
+            if (startDate != null && endDate != null) {
+                String code = generateCouponCode();
+                Coupon coupon = new Coupon(0, startDate, endDate, usageLimit, couponTypeId, code, user.getUser_id());
+
+                try {
+                    couponDAO.addCoupon(coupon);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                response.sendRedirect("couponmanager?action=list");
+            } else {
+                request.setAttribute("errorMessage", "Invalid date format. Please use yyyy-MM-dd.");
+                request.getRequestDispatcher("generateCoupon.jsp").forward(request, response);
+            }
+        }
+    }
     @Override
     public String getServletInfo() {
         return "Short description";
