@@ -617,7 +617,78 @@
                                                 document.getElementById('productForm').submit();
                                             }
         </script>
-      
+      <div id="size-guide-popup" style="display: none; position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; border: 2px solid black; border-radius: 8px; z-index: 1000; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); font-family: Arial, sans-serif;">
+    <h3 style="text-align: center; color: #333;">Bảng size</h3>
+    <table border="1" style="width: 100%; border-collapse: collapse; text-align: center; font-size: 14px;">
+        <thead style="background-color: #f2f2f2;">
+            <tr>
+                <th style="padding: 10px; border: 1px solid #ccc;">SIZE</th>
+                <th style="padding: 10px; border: 1px solid #ccc;">CHIỀU CAO (CM)</th>
+                <th style="padding: 10px; border: 1px solid #ccc;">CÂN NẶNG (KG)</th>
+                <th style="padding: 10px; border: 1px solid #ccc;">NGANG VAI</th>
+                <th style="padding: 10px; border: 1px solid #ccc;">VÒNG NGỰC</th>
+                <th style="padding: 10px; border: 1px solid #ccc;">VÒNG EO</th>
+                <th style="padding: 10px; border: 1px solid #ccc;">DÀI TAY</th>
+                <th style="padding: 10px; border: 1px solid #ccc;">DÀI ÁO</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="background-color: #ffffff;">
+                <td style="padding: 10px; border: 1px solid #ccc;">S</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">&lt; 168</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">&lt; 62</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">44.5</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">100</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">96</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">19.5</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">67.5</td>
+            </tr>
+            <tr style="background-color: #f9f9f9;">
+                <td style="padding: 10px; border: 1px solid #ccc;">M</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">169 - 172</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">63 - 69</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">46</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">104</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">100</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">21</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">69</td>
+            </tr>
+            <tr style="background-color: #ffffff;">
+                <td style="padding: 10px; border: 1px solid #ccc;">L</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">173 - 176</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">70 - 76</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">47.5</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">108</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">104</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">22.5</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">71</td>
+            </tr>
+            <tr style="background-color: #f9f9f9;">
+                <td style="padding: 10px; border: 1px solid #ccc;">XL</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">177 - 180</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">77 - 83</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">49.5</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">114</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">110</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">24</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">73</td>
+            </tr>
+            <tr style="background-color: #ffffff;">
+                <td style="padding: 10px; border: 1px solid #ccc;">XXL</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">&gt; 180</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">&gt; 83</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">51.5</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">120</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">116</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">25.5</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">75</td>
+            </tr>
+        </tbody>
+    </table>
+    <p style="text-align: center; margin-top: 10px; color: #666;">97% khách hàng của chúng tôi đã chọn đúng size theo bảng này</p>
+    <button id="close-popup" style="display: block; margin: 10px auto 0; padding: 8px 16px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">Đóng</button>
+</div>
+
         <script>
             // Lấy các phần tử DOM
             const sizeGuideLink = document.getElementById('size-guide-link');
