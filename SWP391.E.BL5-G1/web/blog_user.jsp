@@ -88,7 +88,7 @@
                                         <div class="card product-card">
                                             <img src="${p.images}" class="card-img-top product-img">
                                             <div class="card-body">
-                                                <h5 class="card-title product-title">${p.title}</h5>
+                                                <h3 class="card-title product-title">${p.title}</h3>
                                                 <p class="card-text product-price">${p.summary}</p>
                                                 <a href="blog-comment?action=blogdetail&blog_id=${p.blog_id}" class="btn btn-primary btn-sm">Đọc nội dung</a>
                                                 <!--<a href="blog?action=deleteBlog&blog_id=${p.blog_id}" class="btn btn-trash btn-sm" style="background-color:red"><i class="fas fa-trash"></i></a>-->
