@@ -4,6 +4,7 @@
  */
 package controller;
 
+import dal.billDAO;
 import dal.userDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -87,31 +88,24 @@ public class User extends HttpServlet {
             response.sendRedirect("home");
         }
 
-//        if (action.equals("myaccount")) {
-//            try {
-//                HttpSession session = request.getSession();
-//                model.User user = (model.User) session.getAttribute("user");
-//                if (user != null) {
-//                    int user_id = user.getUser_id();
-//                    billDAO dao = new billDAO();
-//                    List<model.Bill> bill = dao.getBillByID(user_id);
-//                    request.setAttribute("bill", bill);
-//                    request.getRequestDispatcher("my-account.jsp").forward(request, response);
-//                } else {
-//                    response.sendRedirect("user?action=myaccount");
-//                }
-//            } catch (Exception e) {
-//                response.sendRedirect("user?action=myaccount");
-//            }
-//        }
-//        if (action.equals("showdetail")) {
-//            String bill_id = request.getParameter("bill_id");
-//            int id = Integer.parseInt(bill_id);
-//            billDAO dao = new billDAO();
-//            List<BillDetail> detail = dao.getDetail(id);
-//            request.setAttribute("detail", detail);
-//            request.getRequestDispatcher("billdetail.jsp").forward(request, response);
-//        }
+        if (action.equals("myaccount")) {
+            try {
+                HttpSession session = request.getSession();
+                model.User user = (model.User) session.getAttribute("user");
+                if (user != null) {
+                    int user_id = user.getUser_id();
+                    billDAO dao = new billDAO();
+                    List<model.Bill> bill = dao.getBillByID(user_id);
+                    request.setAttribute("bill", bill);
+                    request.getRequestDispatcher("my-account.jsp").forward(request, response);
+                } else {
+                    response.sendRedirect("user?action=myaccount");
+                }
+            } catch (Exception e) {
+                response.sendRedirect("user?action=myaccount");
+            }
+        }
+        
         if (action.equals("updateinfo")) {
             HttpSession session = request.getSession();
             model.User user = (model.User) session.getAttribute("user");
@@ -202,66 +196,7 @@ public class User extends HttpServlet {
                 }
             }
         }
-        if (action.equals("updatepassword")) {
-            HttpSession session = request.getSession();
-            model.User user = (model.User) session.getAttribute("user");
-
-            if (user != null) {
-                try {
-                    // Retrieve form parameters
-                    String currentPassword = request.getParameter("current_password");
-                    String newPassword = request.getParameter("new_password");
-                    String confirmNewPassword = request.getParameter("confirm_new_password");
-
-                    // Basic validation
-                    if (currentPassword == null || newPassword == null || confirmNewPassword == null) {
-                        session.setAttribute("error_dob", "Tất cả các trường phải được điền đầy đủ.");
-                        response.sendRedirect("user?action=myaccount");
-                        return;
-                    }
-
-                    String passwordRegex = "^(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d]{6,}$";
-                    if (!newPassword.matches(passwordRegex)) {
-                        session.setAttribute("error_dob", "Mật khẩu phải có ít nhất 6 ký tự, bao gồm ít nhất một chữ cái viết hoa và một chữ số");
-                        request.getRequestDispatcher("user?action=myaccount").forward(request, response);
-                        return;
-                    }
-
-                    if (!confirmNewPassword.matches(passwordRegex)) {
-                        session.setAttribute("error_dob", "Mật khẩu phải có ít nhất 6 ký tự, bao gồm ít nhất một chữ cái viết hoa và một chữ số");
-                        request.getRequestDispatcher("user?action=myaccount").forward(request, response);
-                        return;
-                    }
-
-                    if (!newPassword.equals(confirmNewPassword)) {
-                        session.setAttribute("error_dob", "Mật khẩu mới và xác nhận mật khẩu không khớp.");
-                        response.sendRedirect("user?action=myaccount");
-                        return;
-                    }
-
-                    userDAO dao = new userDAO();
-                    if (!dao.checkPassword(user.getUser_id(), currentPassword)) {
-                        session.setAttribute("error_dob", "Mật khẩu hiện tại không chính xác.");
-                        response.sendRedirect("user?action=myaccount");
-                        return;
-                    }
-
-                    // Update the password
-                    dao.updatePassword(user.getUser_id(), newPassword);
-
-                    // Inform the user of success
-                    session.setAttribute("updateMessage", "Mật khẩu đã được thay đổi thành công!");
-                    response.sendRedirect("user?action=myaccount");
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    session.setAttribute("error_message", "Đã xảy ra lỗi khi cập nhật mật khẩu.");
-                    response.sendRedirect("user?action=myaccount");
-                }
-            } else {
-                response.sendRedirect("user?action=myaccount");
-            }
-        }
+        
 
     }
 
