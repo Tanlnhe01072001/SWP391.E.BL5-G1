@@ -195,6 +195,7 @@
                                     <li><a href="#" data-toggle="tab" class="nav-link">Xem BST</a></li>
                                     <li><a href="#edit-profile" data-toggle="tab" class="nav-link">Chỉnh sửa hồ sơ</a></li>
                                     <li><a href="#password" data-toggle="tab" class="nav-link">Đổi mật khẩu</a></li>
+                                    <li><a href="#orders" data-toggle="tab" class="nav-link">Đơn hàng</a></li>
                                     <li><a href="user?action=logout" class="nav-link">Đăng xuất</a></li>
                                 </ul>
                             </div>  
