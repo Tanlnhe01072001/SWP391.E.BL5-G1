@@ -156,7 +156,7 @@
     <script type="text/javascript" src="admin/js/plugins/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="admin/js/plugins/dataTables.bootstrap.min.js"></script>
     <script type="text/javascript">$('#sampleTable').DataTable();</script>
-<script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+
 
     <script>
 
