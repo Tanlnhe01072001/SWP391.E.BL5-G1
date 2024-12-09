@@ -100,20 +100,20 @@
             </select>
             <br />
 
-            <label for="startDate">Start Date:</label>
+            <label for="startDate">Ngày bắt đầu:</label>
             <input type="date" id="startDate" name="startDate" required />
             <br />
 
-            <label for="endDate">End Date:</label>
+            <label for="endDate">Ngày kết thúc:</label>
             <input type="date" id="endDate" name="endDate" required />
             <br />
 
-            <label for="usageLimit">Usage Limit:</label>
+            <label for="usageLimit">Số lượng:</label>
             <input type="number" id="usageLimit" name="usageLimit" required />
             <br />
 
-            <input type="submit" value="Generate Coupon" />
-            <a href="couponmanager?action=list" class="btn btn-back">Back to List</a>
+            <input type="submit" value="Tạo" />
+            <a href="couponmanager?action=list" class="btn btn-back">Trở lại</a>
         </form>
 
     </body>
