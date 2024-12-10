@@ -87,8 +87,42 @@
                     </div>
                 </div>
             </div>
-
         </div>
+        <section class="product_section womens_product bottom">
+            <div class="container">
+                <div class="row">   
+                    <div class="col-12">
+                        <div class="section_title">
+                            <h2>Sản phẩm của chúng tôi</h2>
+                            <p>Sản phẩm dành cho bạn</p>
+                        </div>
+                    </div> 
+                </div>    
+                <div class="product_area"> 
+                    <div class="row">
+                        <div class="product_carousel product_three_column4 owl-carousel">
+                            <c:forEach items="${top10}" var="top10">
+                                <div class="col-lg-3">
+                                    <div class="single_product">
+                                        <div class="product_thumb">
+                                            <a class="primary_img" href="search?action=productdetail&product_id=${top10.product_id}"><img src="${top10.img}" width="10px;" alt=""></a>
+                                            <div class="quick_button">
+                                                <a href="search?action=productdetail&product_id=${top10.product_id}" title="quick_view">Xem sản phẩm</a>
+                                            </div>
+                                        </div>
+                                        <div class="product_content">
+                                            <fmt:formatNumber value="${top10.product_price}" minFractionDigits="0" maxFractionDigits="2" var="formattedPrice"/>
+                                            <h3><a href="search?action=productdetail&product_id=${top10.product_id}">${top10.product_name}</a></h3>
+                                            <span class="current_price">${formattedPrice} VND</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         <div class="elfsight-app-94027198-7458-4351-8ca9-9bf86706a713" data-elfsight-app-lazy></div>
 
         <jsp:include page="footer.jsp"/>
