@@ -36,20 +36,24 @@ public class Settings extends HttpServlet {
             if (user.getIsAdmin().equalsIgnoreCase("true") || user.getIsStoreStaff().equalsIgnoreCase("true")) {
               
                 if (action == null) {
-                    page = "settings.jsp";
+                    request.getRequestDispatcher("settings.jsp").forward(request, response);
                     //action bacup
                 } else if (action.equalsIgnoreCase("backup")) {
                     settingDAO dao = new settingDAO();
                     dao.Backup();
+                    session.setAttribute("successMessageAdd", "Lưu trữ dữ liệu thành công.");
+                    request.getRequestDispatcher("settings.jsp").forward(request, response);
                 }else if (action.equalsIgnoreCase("restore")) {
                     settingDAO dao = new settingDAO();
                     dao.Restore();
+                    session.setAttribute("successMessageAdd", "Khôi phục dữ liệu thành công.");
+                    request.getRequestDispatcher("settings.jsp").forward(request, response);
                 }  
             }
         } catch (Exception e) {
-            page = "404.jsp";
+            request.getRequestDispatcher("404.jsp").forward(request, response);
         }
-        request.getRequestDispatcher(page).forward(request, response);
+        request.getRequestDispatcher("settings.jsp").forward(request, response);
         
     } 
     @Override

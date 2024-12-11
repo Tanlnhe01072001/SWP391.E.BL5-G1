@@ -346,9 +346,6 @@
             </div>
             <!-- shopping cart area end -->
 
-            <!--footer area start-->
-            <jsp:include page="footer.jsp"/>
-            <!--footer area end-->
             <!-- JS
             ============================================ -->
             <!--map js code here-->
