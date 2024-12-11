@@ -79,7 +79,7 @@
                                     <a href="settings?action=backup" class="btn btn-primary btn-sm">
                                         <i class="fas fa-plus"></i> Lưu trữ dữ liệu
                                     </a>
-                                    <a href="settings?action=resore" class="btn btn-primary btn-sm">
+                                    <a href="settings?action=restore" class="btn btn-primary btn-sm">
                                         <i class="fas fa-plus"></i> Khôi phục dữ liệu
                                     </a>
                                 </div>
