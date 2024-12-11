@@ -62,7 +62,20 @@ public class AboutManager extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("user") == null) {
+            response.sendRedirect("user?action=login");
+            return;
+        }
+        model.User user = (model.User) session.getAttribute("user");
+        if (!user.getIsStoreStaff().equalsIgnoreCase("true") && !user.getIsAdmin().equalsIgnoreCase("true")) {
+            response.sendRedirect("home");
+            return;
+        }
+        aboutDAO dao = new aboutDAO();
+        List<About> listAbout = dao.getAbout();
+        request.setAttribute("listAbout", listAbout);
+        request.getRequestDispatcher("aboutManager.jsp").forward(request, response);
     }
 
     /**
