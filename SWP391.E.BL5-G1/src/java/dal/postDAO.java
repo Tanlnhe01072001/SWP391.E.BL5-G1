@@ -113,4 +113,17 @@ public class postDAO extends DBContext{
         }
     }
     
+    // Method to delete a post by ID
+    public void deletePost(int postId) throws Exception {
+        String sql = "DELETE FROM [dbo].[post] WHERE id = ?";
+
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, postId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
 }
