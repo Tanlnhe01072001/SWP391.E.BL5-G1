@@ -27,8 +27,17 @@ public class settingDAO {
         }
     }
     public void Restore(){
-        String sql = "RESTORE DATABASE SWP391_G1\n" +
-                    "FROM DISK = 'D:\\Backup.sql';";
+        String sql = "USE [master];\n" +
+                    "GO\n" +
+                    "alter database SWP391_G1 \n" +
+                    "set offline with rollback immediate\n" +
+                    "GO\n" +
+                    "RESTORE DATABASE SWP391_G1\n" +
+                    "FROM DISK = 'D:\\Backup.sql';\n" +
+                    "GO\n" +
+                    "alter database SWP391_G1 \n" +
+                    "set online\n" +
+                    "GO";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(sql);
