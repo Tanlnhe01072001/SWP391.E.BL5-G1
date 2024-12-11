@@ -95,4 +95,22 @@ public class postDAO extends DBContext{
         }
     }
     
+    // Method to update a post
+    public void updatePost(Post post) throws Exception {
+        String sql = "UPDATE [dbo].[post] SET title = ?, content = ?, updated_at = ?, posttype_id = ? WHERE id = ?";
+
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, post.getTitle());
+            ps.setString(2, post.getContent());
+            ps.setDate(3, new java.sql.Date(post.getUpdateAt().getTime()));
+            ps.setInt(4, post.getPostTypeId());
+            ps.setInt(5, post.getPostId());
+
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
 }
