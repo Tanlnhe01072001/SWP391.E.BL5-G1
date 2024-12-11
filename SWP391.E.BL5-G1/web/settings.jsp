@@ -1,17 +1,16 @@
 <%-- 
-    Document   : listCoupon
-    Created on : Dec 2, 2024, 8:47:26 PM
-    Author     : BOTMark
+    Document   : Settings
+    Created on : Dec 11, 2024, 11:08:14 AM
+    Author     : BOT Mark
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
     <head>
-        <title>Danh sách Coupon | Quản trị Admin</title>
+        <title>Setting | Quản trị Admin</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,7 +28,6 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 
     </head>
-
     <body class="app sidebar-mini rtl">
         <!-- Navbar-->
         <header class="app-header">
@@ -66,7 +64,6 @@
                     <li><a class="app-menu__item" href="customermanager"><i class='app-menu__icon bx bx-user-voice'></i><span class="app-menu__label">Quản lý khách hàng</span></a></li>
                     <li><a class="app-menu__item" href="couponmanager"><i class='app-menu__icon bx bx-receipt'></i><span class="app-menu__label">Quản lý coupon</span></a></li>
                 <li><a class="app-menu__item" href="reportmanager"><i class='app-menu__icon bx bx-receipt'></i><span class="app-menu__label">Quản lý phản hồi</span></a></li>
-                    <li><a class="app-menu__item" href="settings"><i class='app-menu__icon bx bx-receipt'></i><span class="app-menu__label">Cài đặt</span></a></li>
 
                 </c:if>
             </ul>
@@ -79,68 +76,15 @@
                             <!-- Button tạo mới -->
                             <div class="row element-button">
                                 <div class="col-sm-2">
-                                    <a href="couponmanager?action=generate" class="btn btn-primary btn-sm">
-                                        <i class="fas fa-plus"></i> Tạo Mới
+                                    <a href="settings?action=backup" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-plus"></i> Lưu trữ dữ liệu
                                     </a>
                                 </div>
                             </div>
-
-                            <!-- Bảng quản lý Coupon -->
-                            <table class="table table-hover table-bordered" id="sampleTable">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Mã Coupon</th>
-                                        <th>Ngày Bắt Đầu</th>
-                                        <th>Ngày Kết Thúc</th>
-                                        <th>Số Lượt Sử Dụng</th>
-                                        <th>Loại Coupon</th>
-                                        <th>Thao Tác</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <c:forEach var="coupon" items="${coupons}">
-                                        <tr>
-                                            <td>${coupon.couponId}</td>
-                                            <td>${coupon.code}</td>
-                                            <td>${coupon.startDate}</td>
-                                            <td>${coupon.endDate}</td>
-                                            <td>${coupon.usageLimit}</td>
-                                            <td>${coupon.couponDescription}</td>
-                                            <td>
-                                                <a href="couponmanager?action=delete&couponId=${coupon.couponId}" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa không?');">
-                                                    <i class="fas fa-trash"></i> Xóa
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </main>
-
-        <!-- Essential javascripts for application to work-->
-        <script src="admin/js/jquery-3.2.1.min.js"></script>
-        <script src="admin/js/popper.min.js"></script>
-        <script src="admin/js/bootstrap.min.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script src="admin/js/main.js"></script>
-        <!-- The javascript plugin to display page loading on top-->
-        <script src="admin/js/plugins/pace.min.js"></script>
-        <!-- Page specific javascripts-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
-        <!-- Data table plugin-->
-        <script type="text/javascript" src="admin/js/plugins/jquery.dataTables.min.js"></script>
-        <script type="text/javascript" src="admin/js/plugins/dataTables.bootstrap.min.js"></script>
-        <script type="text/javascript">$('#sampleTable').DataTable();</script>
-
-
-        
-
     </body>
-
 </html>
-

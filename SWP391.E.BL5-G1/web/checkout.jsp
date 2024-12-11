@@ -17,7 +17,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/logo/LOGO_FASHION_TOUR.png">
 
     <!-- CSS -->
     <!-- Plugins CSS -->
@@ -31,7 +31,6 @@
     <!-- Main Wrapper Start -->
     <!-- Offcanvas menu area start -->
     <div class="off_canvars_overlay"></div>
-    <jsp:include page="layout/menu.jsp"/>
     <!-- Breadcrumbs area start -->
     <div class="breadcrumbs_area other_bread">
         <div class="container">
@@ -140,9 +139,6 @@
     </div>
     <!-- Checkout page section end -->
 
-    <!-- Footer area start -->
-    <jsp:include page="layout/footer.jsp"/>
-    <!-- Footer area end -->
 
     <!-- JS -->
     <!-- Plugins JS -->
