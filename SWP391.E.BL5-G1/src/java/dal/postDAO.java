@@ -76,4 +76,23 @@ public class postDAO extends DBContext{
         return post;
     }
     
+    // Method to add a new post
+    public void addPost(Post post) throws Exception {
+        String sql = "INSERT INTO [dbo].[post] (title, content, created_at, updated_at, user_id, posttype_id) VALUES (?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, post.getTitle());
+            ps.setString(2, post.getContent());
+            ps.setDate(3, new java.sql.Date(post.getCreateAt().getTime()));
+            ps.setDate(4, new java.sql.Date(post.getUpdateAt().getTime()));
+            ps.setInt(5, post.getUserid());
+            ps.setInt(6, post.getPostTypeId());
+
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
 }
