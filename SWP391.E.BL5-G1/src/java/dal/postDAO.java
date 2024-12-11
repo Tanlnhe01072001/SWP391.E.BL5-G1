@@ -47,4 +47,33 @@ public class postDAO extends DBContext{
         return posts;
     }
     
+    // Method to get a post by ID
+    public Post getPostById(int postId) throws Exception {
+        Post post = null;
+        String sql = "SELECT p.id AS postId, p.title, p.content, p.created_at AS createAt, p.updated_at AS updateAt, p.posttype_id AS postTypeId, p.user_id AS userid "
+                + "FROM [dbo].[post] p "
+                + "WHERE p.id = ?";
+
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, postId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    post = new Post(
+                            rs.getInt("postId"),
+                            rs.getString("title"),
+                            rs.getString("content"),
+                            rs.getInt("postTypeId"),
+                            rs.getInt("userid"),
+                            rs.getDate("createAt"),
+                            rs.getDate("updateAt")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return post;
+    }
+    
 }
