@@ -105,14 +105,7 @@ public class User extends HttpServlet {
                 response.sendRedirect("user?action=myaccount");
             }
         }
-//        if (action.equals("showdetail")) {
-//            String bill_id = request.getParameter("bill_id");
-//            int id = Integer.parseInt(bill_id);
-//            billDAO dao = new billDAO();
-//            List<BillDetail> detail = dao.getDetail(id);
-//            request.setAttribute("detail", detail);
-//            request.getRequestDispatcher("billdetail.jsp").forward(request, response);
-//        }
+////userdetail
         if (action.equals("updateinfo")) {
             HttpSession session = request.getSession();
             model.User user = (model.User) session.getAttribute("user");
