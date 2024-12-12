@@ -62,7 +62,25 @@ public class EditAbout extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("user") == null) {
+            response.sendRedirect("user?action=login");
+            return;
+        }
+
+        model.User user = (model.User) session.getAttribute("user");
+        if (!user.getIsStoreStaff().equalsIgnoreCase("true")&& !user.getIsAdmin().equalsIgnoreCase("true")) {
+            response.sendRedirect("home");
+            return;
+        }
+        String aboutId = request.getParameter("id");
+        aboutDAO dao = new aboutDAO();
+        About about = dao.getAboutById(aboutId);
+        request.setAttribute("aboutId", about.getAboutId());
+        request.setAttribute("title", about.getTitle());
+        request.setAttribute("img", about.getImg());
+        request.setAttribute("content", about.getContent());
+        request.getRequestDispatcher("editAbout.jsp").forward(request, response);
     }
 
     /**
