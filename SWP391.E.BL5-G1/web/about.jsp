@@ -126,8 +126,31 @@
         <header>
             <h1>Giới Thiệu</h1>
         </header>
+        <div class="container">
+            <section id="about">
+                <h2>Chào Mừng Đến Với Cửa Hàng Quần Áo Của Chúng Tôi</h2> 
+                 <p>Với hơn nhiều năm kinh nghiệm trong ngành thời trang, chúng tôi tự hào là một trong những cửa hàng thời trang lâu đời, nơi mỗi sản phẩm đều chứa đựng sự tinh tế và đẳng cấp vượt thời gian. Chuyên cung cấp các bộ sưu tập quần áo và phụ kiện được chế tác với sự tỉ mỉ, cửa hàng của chúng tôi không chỉ là nơi bạn mua sắm, mà còn là không gian để bạn khám phá những giá trị nghệ thuật vĩnh cửu của thời trang.</p> 
+                 <p>Với sự am hiểu sâu sắc về lịch sử và sự phát triển của thời trang, chúng tôi luôn cập nhật những xu hướng mới nhất mà vẫn giữ vững được cái hồn cổ điển. Chúng tôi cam kết mang đến cho bạn những bộ sưu tập độc đáo, nơi mỗi chi tiết đều được chăm chút tỉ mỉ, và mỗi món đồ là một tác phẩm nghệ thuật riêng biệt. Đến với chúng tôi, bạn không chỉ tìm thấy sản phẩm thời trang mà còn cảm nhận được sự tinh tế trong từng đường nét thiết kế.</p> 
+                 <p>Sự hài lòng của khách hàng chính là niềm tự hào và động lực để chúng tôi không ngừng phát triển. Cùng với đội ngũ thiết kế dày dặn kinh nghiệm, chúng tôi hy vọng sẽ đồng hành cùng bạn trên hành trình khám phá phong cách cá nhân của mình, trong mỗi bộ trang phục là một tuyên ngôn của sự sang trọng và khác biệt.</p>
+            </section>
 
-<!--        -->
+            <c:forEach var="item" items="${listAbout}">
+                <c:set var="counter" value="${counter + 1}" />
+                <section id="${item.aboutId}" class="${(counter % 2 == 0) ? 'c-even' : 'c-odd'}">
+                    <h2>${item.title}</h2>
+                    <div class="content-wrapper">
+                        <div class="content-text">
+                            <p>${item.content}</p>
+                        </div>
+                        <div class="content-image">
+                            <img src="${item.img}" alt="${item.title}">
+                        </div>
+                    </div>
+                </section>
+            </c:forEach>
+
+        </div>
+
 
         <jsp:include page="footer.jsp"/>
 
