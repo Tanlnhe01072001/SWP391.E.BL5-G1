@@ -86,11 +86,14 @@
                                     <div class="col-md-12">
                                         <label for="ratingFilter"></label>
                                         <select name="ratingFilter" id="ratingFilter" class="form-control" onchange="this.form.submit()">
+                                            <option value="">Tùy chọn</option>
+                                            <option value="">Tất cả</option>
                                             <option value="5">5 sao</option>
                                             <option value="4">4 sao</option>
                                             <option value="3">3 sao</option>
                                             <option value="2">2 sao</option>
                                             <option value="1">1 sao</option>
+                                            
                                         </select>
                                     </div>
                                 </div>
