@@ -1,21 +1,22 @@
 <%-- 
-    Document   : Settings
-    Created on : Dec 11, 2024, 11:08:14 AM
-    Author     : BOT Mark
+    Document   : order
+    Created on : Dec 11, 2024, 8:22:29 PM
+    Author     : BOTMark
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
     <head>
-        <title>Setting | Quản trị Admin</title>
+        <title>Danh sách đơn hàng | Quản trị Admin</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Main CSS-->
-        <link rel="stylesheet" type="text/css" href="css/mainAdmin.css">
+        <link rel="stylesheet" type="text/css" href="admin/css/main.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
         <!-- or -->
         <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
@@ -28,6 +29,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 
     </head>
+
     <body class="app sidebar-mini rtl">
         <!-- Navbar-->
         <header class="app-header">
@@ -69,28 +71,99 @@
                     <li><a class="app-menu__item" href="reportmanager"><i class='app-menu__icon bx bx-receipt'></i><span class="app-menu__label">Quản lý phản hồi</span></a></li>
                     <li><a class="app-menu__item" href="aboutmanager"><i class='app-menu__icon bx bx-receipt'></i><span class="app-menu__label">Quản lý trang giới thiệu</span></a></li>
                     <li><a class="app-menu__item" href="settings"><i class='app-menu__icon bx bx-receipt'></i><span class="app-menu__label">Cài đặt</span></a></li>
+                    
+
+                </c:if>
+                
             </ul>
         </aside>
         <main class="app-content">
             <div class="row">
                 <div class="col-md-12">
                     <div class="tile">
-                        <div class="tile-body">
-                            <!-- Button tạo mới -->
-                            <div class="row element-button">
-                                <div class="col-sm-2">
-                                    <a href="settings?action=backup" class="btn btn-primary btn-sm">
-                                        <i class="fas fa-plus"></i> Lưu trữ dữ liệu
-                                    </a>
-                                    <a href="settings?action=restore" class="btn btn-primary btn-sm">
-                                        <i class="fas fa-plus"></i> Khôi phục dữ liệu
-                                    </a>
-                                </div>
-                            </div>
+                        <div>
+                            <label for="paymentFilter">Phương thức thanh toán:</label>
+                            <select id="paymentFilter" onchange="filterTable()">
+                                <option value="">Tất cả</option>
+                                <option value="COD">COD</option>
+                                <option value="VNPAY">VNPAY</option>
+                                <!-- Add more options as needed -->
+                            </select>
                         </div>
+                        <table class="table table-hover table-bordered" id="sampleTable">
+                            <thead>
+                                <tr>
+                                    <th>ID đơn hàng</th>
+                                    <th>Khách hàng</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Ngày mua</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Thanh Toán</th>
+                                    <th>Chức năng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach items="${bill}" var="b">
+                                    <tr>
+                                        <td>${b.bill_id}</td>
+                                        <td>${b.user.user_name}</td>
+                                        <td>(+84)${b.phone}</td>
+                                        <td>${b.address}</td>
+                                        <td>${b.date}</td>
+                                        <td><fmt:formatNumber value="${b.total}" minFractionDigits="0" maxFractionDigits="2"/></td>
+                                        <td><span class="badge bg-success">${b.payment}</span></td>                                  
+                                        <td><a style=" color: white;background-color: red; padding: 5px;border-radius: 5px;" href="ordermanager?action=showdetail&bill_id=${b.bill_id}"><i class="fa"></i>Hiển thị đơn hàng</a></td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-        </main>
-    </body>
+        </div>
+    </main>
+    <!-- Essential javascripts for application to work-->
+    <script src="admin/js/jquery-3.2.1.min.js"></script>
+    <script src="admin/js/popper.min.js"></script>
+    <script src="admin/js/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="admin/js/main.js"></script>
+    <!-- The javascript plugin to display page loading on top-->
+    <script src="admin/js/plugins/pace.min.js"></script>
+    <!-- Page specific javascripts-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    <!-- Data table plugin-->
+    <script type="text/javascript" src="admin/js/plugins/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="admin/js/plugins/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript">$('#sampleTable').DataTable();</script>
+
+
+
+
+    <script>
+        function filterTable() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("paymentFilter");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("sampleTable");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[6]; // Index of the payment column
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+
+</body>
+
 </html>
+
