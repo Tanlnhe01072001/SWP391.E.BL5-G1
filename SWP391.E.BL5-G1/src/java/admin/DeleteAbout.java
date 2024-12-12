@@ -59,7 +59,21 @@ public class DeleteAbout extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("user") == null) {
+            response.sendRedirect("user?action=login");
+            return;
+        }
+
+        model.User user = (model.User) session.getAttribute("user");
+        if (!user.getIsStoreStaff().equalsIgnoreCase("true")) {
+            response.sendRedirect("home");
+            return;
+        }
+        String aboutId = request.getParameter("id");
+        aboutDAO dao = new aboutDAO();
+        dao.deleteAbout(aboutId);
+        response.sendRedirect("aboutmanager");
     }
 
     /**
