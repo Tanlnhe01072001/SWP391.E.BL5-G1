@@ -69,6 +69,7 @@
                     <li><a class="app-menu__item" href="reportmanager"><i class='app-menu__icon bx bx-receipt'></i><span class="app-menu__label">Quản lý phản hồi</span></a></li>
                     <li><a class="app-menu__item" href="aboutmanager"><i class='app-menu__icon bx bx-receipt'></i><span class="app-menu__label">Quản lý trang giới thiệu</span></a></li>
                     <li><a class="app-menu__item" href="settings"><i class='app-menu__icon bx bx-receipt'></i><span class="app-menu__label">Cài đặt</span></a></li>
+                </c:if>
             </ul>
         </aside>
         <main class="app-content">
