@@ -596,7 +596,11 @@ public class productDAO extends DBContext {
     }
      public List<Product> getNewProduct() {
         List<Product> list = new ArrayList<>();
-        String sql = "SELECT  p.product_id , p.product_name, p.product_price, p.product_describe, p.quantity,p.img FROM product p inner join bill_detail bd on p.product_id = bd.product_id ORDER BY bd.quantity";
+        String sql = "SELECT p.product_id, p.product_name, p.product_price, p.product_describe, p.quantity, p.img " +
+             "FROM product p " +
+             "ORDER BY p.product_id ASC "; 
+             
+
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(sql);
