@@ -1,9 +1,8 @@
 <%-- 
-    Document   : order
-    Created on : Dec 11, 2024, 8:22:29 PM
+    Document   : dashboard
+    Created on : Dec 12, 2024, 10:11:15 PM
     Author     : BOTMark
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -11,7 +10,7 @@
 <html lang="en">
 
     <head>
-        <title>Danh sách đơn hàng | Quản trị Admin</title>
+        <title>Danh sách bình luận | Quản trị Admin</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -48,7 +47,7 @@
         <!-- Sidebar menu-->
         <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
         <aside class="app-sidebar">
-            <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="admin/images/User.png" width="50px"
+            <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="admin/images/user.png" width="50px"
                                                 alt="User Image">
                 <div>
                     <p class="app-sidebar__user-name"><b>${sessionScope.user.user_name}</b></p>
@@ -77,92 +76,82 @@
             </ul>
         </aside>
         <main class="app-content">
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="tile">
-                        <div>
-                            <label for="paymentFilter">Phương thức thanh toán:</label>
-                            <select id="paymentFilter" onchange="filterTable()">
-                                <option value="">Tất cả</option>
-                                <option value="COD">COD</option>
-                                <option value="VNPAY">VNPAY</option>
-                                <!-- Add more options as needed -->
-                            </select>
-                        </div>
-                        <table class="table table-hover table-bordered" id="sampleTable">
-                            <thead>
-                                <tr>
-                                    <th>ID đơn hàng</th>
-                                    <th>Khách hàng</th>
-                                    <th>Số điện thoại</th>
-                                    <th>Địa chỉ</th>
-                                    <th>Ngày mua</th>
-                                    <th>Tổng tiền</th>
-                                    <th>Thanh Toán</th>
-                                    <th>Chức năng</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach items="${bill}" var="b">
+                        <div class="tile-body">
+                            <form method="get" action="commentmanager">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="ratingFilter"></label>
+                                        <select name="ratingFilter" id="ratingFilter" class="form-control" onchange="this.form.submit()">
+                                            <option value="">Tất cả</option>
+                                            <option value="5">5 sao</option>
+                                            <option value="4">4 sao</option>
+                                            <option value="3">3 sao</option>
+                                            <option value="2">2 sao</option>
+                                            <option value="1">1 sao</option>
+                                            <option value="1">0 sao</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0" border="0"
+                                   id="sampleTable">
+                                <thead>
                                     <tr>
-                                        <td>${b.bill_id}</td>
-                                        <td>${b.user.user_name}</td>
-                                        <td>(+84)${b.phone}</td>
-                                        <td>${b.address}</td>
-                                        <td>${b.date}</td>
-                                        <td><fmt:formatNumber value="${b.total}" minFractionDigits="0" maxFractionDigits="2"/></td>
-                                        <td><span class="badge bg-success">${b.payment}</span></td>                                  
-                                        <td><a style=" color: white;background-color: red; padding: 5px;border-radius: 5px;" href="ordermanager?action=showdetail&bill_id=${b.bill_id}"><i class="fa"></i>Hiển thị đơn hàng</a></td>
+                                        <th>ID</th>
+                                        <th>Product_ID</th>
+                                        <th>user_name</th>
+                                        <th>Đánh giá</th> 
+                                        <th>Bình luận</th>                                                                                
+                                        <th>Ngày</th> 
+
+                                        <th width="70">Tính năng</th>
                                     </tr>
-                                </c:forEach>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${comment}" var="c">
+                                        <tr>
+                                            <td>${c.id}</td>
+                                            <td>${c.productId}</td>
+                                            <td>${c.user_name}</td> 
+                                            <td>${c.rating}</td> 
+                                            <td>${c.comment}</td>  
+                                            <td><fmt:formatDate value="${c.createdAt}" pattern="dd/MM/yyyy"/></td>
+                                            <td>
+                                                <button class="btn btn-primary btn-sm trash" type="button" title="Xóa" value="${c.id}"><i
+                                                        class="fas fa-trash-alt"></i>
+                                            </td>
+                                        </tr>
+
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </main>
-    <!-- Essential javascripts for application to work-->
-    <script src="admin/js/jquery-3.2.1.min.js"></script>
-    <script src="admin/js/popper.min.js"></script>
-    <script src="admin/js/bootstrap.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="admin/js/main.js"></script>
-    <!-- The javascript plugin to display page loading on top-->
-    <script src="admin/js/plugins/pace.min.js"></script>
-    <!-- Page specific javascripts-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
-    <!-- Data table plugin-->
-    <script type="text/javascript" src="admin/js/plugins/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="admin/js/plugins/dataTables.bootstrap.min.js"></script>
-    <script type="text/javascript">$('#sampleTable').DataTable();</script>
+        </main>
 
-
-
-
-    <script>
-        function filterTable() {
-            var input, filter, table, tr, td, i, txtValue;
-            input = document.getElementById("paymentFilter");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("sampleTable");
-            tr = table.getElementsByTagName("tr");
-
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[6]; // Index of the payment column
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                }
-            }
-        }
-    </script>
-
-</body>
+        <!-- Essential javascripts for application to work-->
+        <script src="admin/js/jquery-3.2.1.min.js"></script>
+        <script src="admin/js/popper.min.js"></script>
+        <script src="admin/js/bootstrap.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="admin/js/main.js"></script>
+        <!-- The javascript plugin to display page loading on top-->
+        <script src="admin/js/plugins/pace.min.js"></script>
+        <!-- Page specific javascripts-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+        <!-- Data table plugin-->
+        <script type="text/javascript" src="admin/js/plugins/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="admin/js/plugins/dataTables.bootstrap.min.js"></script>
+        <script type="text/javascript">$('#sampleTable').DataTable();</script>
+        
+    </body>
 
 </html>
-
