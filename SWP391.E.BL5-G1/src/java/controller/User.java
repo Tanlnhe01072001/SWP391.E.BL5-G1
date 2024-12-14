@@ -21,6 +21,7 @@ import java.util.Date;
 import java.util.List;
 import model.BillDetail;
 import model.UserC;
+import java.util.Calendar;
 
 /**
  *
@@ -128,12 +129,27 @@ public class User extends HttpServlet {
                     Date dob = sdf.parse(dateOfBirth);
                     Date currentDate = new Date();
 
+                    // Kiểm tra ngày sinh không được lớn hơn ngày hiện tại
                     if (dob.after(currentDate)) {
                         session.setAttribute("error_dob", "Ngày sinh không được lớn hơn ngày hiện tại");
                         request.getRequestDispatcher("my-account.jsp").forward(request, response);
                         return;
                     }
-                    String phoneNumberPattern = "\\d{10}";
+
+                    // Kiểm tra độ tuổi ít nhất 1 tuổi
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(currentDate);  
+                    calendar.add(Calendar.YEAR, -16);  
+                    Date oneYearAgo = calendar.getTime();  
+
+                    if (dob.after(oneYearAgo)) {
+                        session.setAttribute("error_dob", "Bạn phải ít nhất 16 tuổi");
+                        request.getRequestDispatcher("my-account.jsp").forward(request, response);
+                        return;
+                    }
+
+                    // Kiểm tra số điện thoại
+                    String phoneNumberPattern = "^[0-9]{10}$";
                     if (phoneNumber == null || !phoneNumber.matches(phoneNumberPattern)) {
                         session.setAttribute("error_dob", "Số điện thoại không hợp lệ");
                         request.getRequestDispatcher("my-account.jsp").forward(request, response);
@@ -149,11 +165,9 @@ public class User extends HttpServlet {
                     session.setAttribute("updateMessage", "Cập nhật thông tin thành công!");
                     response.sendRedirect("user?action=myaccount");
                 } catch (ParseException e) {
-
                     session.setAttribute("error_dob", "Ngày sinh không hợp lệ");
                     request.getRequestDispatcher("my-account.jsp").forward(request, response);
                 } catch (Exception e) {
-
                     e.printStackTrace();
                     response.sendRedirect("user?action=myaccount");
                 }
@@ -161,6 +175,7 @@ public class User extends HttpServlet {
                 response.sendRedirect("user?action=myaccount");
             }
         }
+
         if (action.equals("signup")) {
             HttpSession session = request.getSession();
             userDAO da = new userDAO();
